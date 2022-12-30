@@ -10,7 +10,7 @@ const Header = () => {
     return (
         <AppBar position="sticky" sx={{ backgroundColor: "#1a8cff" }}>
             <Toolbar><Typography>Social App</Typography>
-                <Tabs value={tabValue} indicatorColor="#800000" textColor='#800000' sx={{ ml: "auto" }} onChange={(e, val) => settabValue(val)}>
+                <Tabs value={tabValue} indicatorColor="primary" textColor='secondary' sx={{ ml: "auto" }} onChange={(e, val) => settabValue(val)}>
                     {
                         islogin ? loggedInLinkArr.map((link) => <Tab
                             LinkComponent={Link} to={`/${link === 'home' ? "" : link}`}

@@ -79,3 +79,23 @@ export const getUser = async() => {
     return resData;
 };
  
+export const likePost = async(id) => {
+    const res = await axios.put(`http://localhost:5000/posts/like/${id}/`,{
+        user : localStorage.getItem("userId")
+    }).catch((err)=>console.log(err));
+    if(res.status!==200){
+        return console.log("error");
+    }
+    const resData = await res.data;
+    return resData;    
+};
+export const unlikePost = async(id) => {
+    const res = await axios.put(`http://localhost:5000/posts/unlike/${id}/`,{
+        user : localStorage.getItem("userId")
+    }).catch((err)=>console.log(err));
+    if(res.status!==200){
+        return console.log("error");
+    }
+    const resData = await res.data;
+    return resData;    
+};

@@ -32,7 +32,7 @@ export const addPost = async (req, res) => {
     }
     let post;
     try {
-        // post = new Post({description, location, image, date: new Date(`${date}`), user });
+        
         post = new Post({description, location, image, date: new Date(Date.now()), user });
 
         const session = await mongoose.startSession();
@@ -103,3 +103,39 @@ export const deletePost = async (req, res) => {
     }
     return res.status(200).json({message:"deleted successfully"});
 };
+ export const likePost = async (req,res) => {
+    const id = req.params.id;
+    const { user } = req.body;
+    let post;
+    try{
+        post = await Post.findByIdAndUpdate(id,{
+            $push:{likes:user}
+        },{
+        new:true
+    })
+    }catch(err){
+        console.log(err);
+    }
+    if(!post){
+        return res.status(400).json({message:"unable to like"});
+    }
+    return res.status(200).json({post});
+ };
+ export const unlikePost = async (req,res) => {
+    const id = req.params.id;
+    const { user } = req.body;
+    let post;
+    try{
+        post = await Post.findByIdAndUpdate(id,{
+            $pull:{likes:user}
+        },{
+        new:true
+    })
+    }catch(err){
+        console.log(err);
+    }
+    if(!post){
+        return res.status(400).json({message:"unable to unlike"});
+    }
+    return res.status(200).json({post});
+ };
